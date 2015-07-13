@@ -50,7 +50,7 @@
                                     $return = array(true, array($row['id'],$row['fname']));
                                     $this->makelog($user, "login", "Usuario '".$user."' ingreso al sistema");
                                 }
-                            }else{
+                            }else{ 
                                 $return = $result;
                             }
                             return $return;
