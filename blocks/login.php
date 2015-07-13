@@ -7,7 +7,7 @@
  */
 
 ?>
-<input type="text" id="form_answer">
+<input type="hidden" id="form_answer">
 <div id="login_canvas" class="container-fluid">   
     <div id="login_block" class="row">
         <div class="login_part login-mail col-md-12">
@@ -37,7 +37,7 @@
         var answer = document.getElementById("form_answer").value;
         json = jQuery.parseJSON( answer );
         if(json.r==1){
-             //location.reload();
+             location.reload();
         }else{
              show_message("login_form_message",json.d);
         }        
