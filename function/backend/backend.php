@@ -55,5 +55,19 @@
                             }
                             return $return;
                         }
+                        function get_proyector($id = null){
+                            $proyector = array();
+                            $query = "SELECT * FROM `proyector`";
+                            if($id!=NULL) $query.= " WHERE `id`='".$id."'";
+                            $query.=";";
+                            
+                            $result = $this->makequery($query);
+                            if($result[0]){
+                                while($row = mysqli_fetch_array($result[1])){
+                                    array_push($proyector, $row);
+                                }
+                            }
+                            return $proyector;
+                        }
 	}
 ?>
