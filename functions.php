@@ -13,72 +13,63 @@
  */
 
 
+
+
+
+
 function testconection($name){ 
     $array = array("respuesta"=>"Texto recibido ".$name);
     return json_encode($array);
 }
 function listaproyectores(){	
-    $result = array(PROYECTORES=>array(
-					array(ID=>"1",Name=>"Optoma"),
-					array(ID=>"2",Name=>"Nec"),
-					array(ID=>"4",Name=>"ViewSonic"),
-					array(ID=>"5",Name=>"Sony")
-			));
+    $result = array(false);
+    include_once '/function/logic.php';
+    $proyector = get_allproyector();
+    $lista = array();
+    for($i=0;$i<sizeof($proyector);$i++){
+        array_push($lista, array(ID=>$proyector[$i]['id'],Name=>$proyector[$i]['name']));
+    }
+    $result = array(PROYECTORES=>$lista);
     return json_encode($result);
 }
 
 function infoproyector($id){
     $result = array(false);
-    switch($id){
-        case "1":{$result = array(
-                                array(
-                                        BaudRate => 9600, 
-                                        DataBits=> 8, 
-                                        Parity=> 0, 
-                                        StopBits=> 1), 
-                                array(
-                                        PROY_ON => '7E, 30, 30, 30, 30, 20, 31, 0D',
-                                        PROY_Off => '7E, 30, 30, 30, 30, 20, 30, 0D',
-                                        PROY_HDMI1 => '7E, 30, 30, 31, 32, 20, 31, 0D',
-                                        PROY_HDMI2 => '7E, 30, 30, 31, 32, 20, 31, 35, 0D',
-                                        PROY_VGA1 => '7E, 30, 30, 31, 32, 20, 35, 0D',
-                                        PROY_VGA2 => '7E, 30, 30, 31, 32, 20, 36, 0D',
-                                        PROY_VOL_UP => '7E, 30, 30, 31, 34, 30, 20, 31, 38, 0D',
-                                        PROY_VOL_DOWN => '7E, 30, 30, 31, 34, 30, 20, 31, 37, 0D',
-                                        PROY_VOL_MUTE => '7E, 30, 30, 38, 34, 30, 20, 32, 0D'                                    
-                                ));
-        break;}
-		case "2":{$result = array(
-				array(                                        
-					BaudRate => 38400, 
-                                        DataBits=> 8, 
-                                        Parity=> 0, 
-                                        StopBits=> 1),
-				array(
-                                        PROY_ON => '02, 00, 00, 00, 00, 02',
-                                        PROY_Off => '02, 01, 00, 00, 00, 03',
-                                        PROY_HDMI1 => '02, 03, 00, 00, 02, 01, 1A, 12',
-                                        PROY_HDMI2 => 'false',
-                                        PROY_VGA1 => '02, 03, 00, 00, 02, 01, 01, 09',
-                                        PROY_VGA2 => '02, 03, 00, 00, 02, 01, 01,0A',
-                                        PROY_VOL_UP => '02, 0F, 00, 00, 02, 84, 00, 17',
-                                        PROY_VOL_DOWN => '02, 0F, 00, 00, 02, 85, 00, 18',
-                                        PROY_VOL_MUTE => '02, 0F, 00, 00, 02, 12, 00, 15'));			
-		break;}
+    include_once '/function/logic.php';
+    $proyector = get_proyector($id);
+    if($proyector){
+        $result = array(
+                    array(
+                            BaudRate => $proyector['bauderate'], 
+                            DataBits=> $proyector['databits'], 
+                            Parity=> $proyector['parity'], 
+                            StopBits=> $proyector['stopbits']), 
+                    array(
+                            PROY_ON => $proyector['on'],
+                            PROY_Off => $proyector['off'],
+                            PROY_HDMI1 => $proyector['hdmi1'],
+                            PROY_HDMI2 => $proyector['hdmi2'],
+                            PROY_VGA1 => $proyector['vga1'],
+                            PROY_VGA2 => $proyector['vga2'],
+                            PROY_VOL_UP => $proyector['volup'],
+                            PROY_VOL_DOWN => $proyector['voldown'],
+                            PROY_VOL_MUTE => $proyector['volmute']                                    
+            ));        
     }
     return json_encode(array(DATA=>$result));
 }
 
 function getimagen($id){
 	$result = array(false);
-	switch($id){
-		case "proyector1":{$result = array(img => 'http://beta.akademeia.ufm.edu/cerebro/upload/proyector1.jpg');break;}
-		case "luces1":{$result = array(img => 'http://beta.akademeia.ufm.edu/cerebro/upload/luces1.jpg');break;}
-		case "mas1":{$result = array(img => 'http://beta.akademeia.ufm.edu/cerebro/upload/mas1.jpg');break;}
-	}
+	$result = array(tema => 'http://beta.akademeia.ufm.edu/cerebro/upload/tema1/');
 	return json_encode($result);
 }
 
+function gettema(){
+	$result = array(false);
+	$result = array(tema => 'http://beta.akademeia.ufm.edu/cerebro/upload/tema1/');
+	return json_encode($result);	
+}
 function countname(){
     
 }

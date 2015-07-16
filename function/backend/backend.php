@@ -69,5 +69,29 @@
                             }
                             return $proyector;
                         }
+                        function update_proyect($id, $name, $on, $off, $hdmi1, $hdmi2, $vga1, $vga2, $volup, $voldown, $volmute, $baudios, $databit, $parity, $stopbit){
+                            $proyector = array();
+                            $query = "UPDATE `proyector` SET 
+                                `name`='".$name."',
+                                `on`='".$on."',
+                                `off`='".$off."',
+                                `hdmi1`='".$hdmi1."',
+                                `hdmi2`='".$hdmi2."',
+                                `vga1`='".$vga1."',
+                                `vga2`='".$vga2."',
+                                `volup`='".$volup."',
+                                `voldown`='".$voldown."',
+                                `volmute`='".$volmute."',
+                                `bauderate`='".$baudios."',
+                                `databits`='".$databit."',
+                                `parity`='".$parity."',
+                                `stopbits`='".$stopbit."'
+                                WHERE `proyector`.`id` = ".$id.";";                            
+                            $result = $this->makequery($query);
+                            if($result[0]){
+                                return true;
+                            }
+                            return false;
+                        }
 	}
 ?>

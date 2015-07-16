@@ -116,5 +116,6 @@
             }
         }
 /********************************************************************************************************************/
-    include_once 'logic_login.php';    
+    include_once 'logic_login.php';   
+    include_once 'logic_proyector.php';
 ?>

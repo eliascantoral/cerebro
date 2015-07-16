@@ -11,7 +11,16 @@ require 'lib/nusoap.php';
 
 $server = new soap_server();
 $server->configureWSDL("demo","urn:demo");
-
+$server->register(
+            "gettema", //////name of function
+            array(),
+            array("return"=>'xsd:string')        
+        );
+$server->register(
+            "getimagen", //////name of function
+            array("id"=>'xsd:string'),
+            array("return"=>'xsd:string')        
+        );
 $server->register(
             "testconection", //////name of function
             array("name"=>'xsd:string'),
